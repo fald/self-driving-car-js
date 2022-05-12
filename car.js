@@ -17,4 +17,19 @@ class Car {
             );
         context.fill();
     }
+
+    update() {
+        if (this.controls.forward) {
+            this.y -= 2;
+        }
+        if (this.controls.reverse) {
+            this.y += 2;
+        }
+        if (this.controls.left) { // want these to be rotation instead
+            this.x -= 2;
+        }
+        if (this.controls.right) {
+            this.x += 2;
+        }
+    }
 }
