@@ -5,6 +5,12 @@ class Car {
         this.width = width;
         this.height = height;
 
+        this.acceleration = 0.2;
+        this.speed = 0;
+        this.maxSpeed = 5;
+        this.maxReverse = -2;
+        this.friction = 0.05;
+
         this.controls = new Controls();
     }
 
@@ -20,11 +26,21 @@ class Car {
 
     update() {
         if (this.controls.forward) {
-            this.y -= 2;
+            this.speed = Math.max(this.speed + this.acceleration, this.maxSpeed);
         }
         if (this.controls.reverse) {
-            this.y += 2;
+            this.speed = Math.max(this.speed - this.acceleration, this.maxReverse);
         }
+
+        // friction
+        if (this.speed > 0) {
+            this.speed -= this.friction;
+        } else if (this.speed < 0) {
+            this.speed += this.friction;
+        }
+
+        this.y -= this.speed;
+
         if (this.controls.left) { // want these to be rotation instead
             this.x -= 2;
         }
