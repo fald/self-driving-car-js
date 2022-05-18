@@ -60,6 +60,5 @@ class Car {
         // Inverted cos/sin since the unit circle is rotated 90 degrees
         this.x += Math.sin(this.angle) * this.speed;
         this.y += Math.cos(this.angle) * this.speed;
-        // this.y -= this.speed;
     }
 }
