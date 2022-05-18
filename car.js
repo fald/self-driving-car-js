@@ -5,9 +5,9 @@ class Car {
         this.width = width;
         this.height = height;
 
-        this.acceleration = 0.2;
+        this.acceleration = 0.1;
         this.speed = 0;
-        this.maxSpeed = 5;
+        this.maxSpeed = 4;
         this.maxReverse = -3;
         this.friction = 0.05;
         this.angle = 0;
@@ -19,7 +19,7 @@ class Car {
     draw(context) {
         context.save();
         context.translate(this.x, this.y);
-        context.rotate(this.angle);
+        context.rotate(-this.angle);
 
         context.beginPath();
         context.rect(
