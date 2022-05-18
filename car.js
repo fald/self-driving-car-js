@@ -8,8 +8,10 @@ class Car {
         this.acceleration = 0.2;
         this.speed = 0;
         this.maxSpeed = 5;
-        this.maxReverse = -2;
+        this.maxReverse = -3;
         this.friction = 0.05;
+        this.angle = 0;
+        this.turnSpeed = 0.1;
 
         this.controls = new Controls();
     }
@@ -39,13 +41,14 @@ class Car {
             this.speed += this.friction;
         }
 
-        this.y -= this.speed;
-
-        if (this.controls.left) { // want these to be rotation instead
-            this.x -= 2;
+        // Turn - based on a unit circle with 0 degrees at the top
+        if (this.controls.left) {
+            this.angle += this.turnSpeed;
         }
         if (this.controls.right) {
-            this.x += 2;
+            this.angle -= this.turnSpeed;
         }
+
+        this.y -= this.speed;
     }
 }
