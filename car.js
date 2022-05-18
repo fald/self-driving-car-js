@@ -33,7 +33,7 @@ class Car {
         context.restore();
     }
 
-    update() {
+    #move() {
         if (this.controls.forward) {
             this.speed = Math.max(this.speed + this.acceleration, this.maxSpeed);
         }
@@ -60,5 +60,9 @@ class Car {
         // Inverted cos/sin since the unit circle is rotated 90 degrees
         this.x += Math.sin(this.angle) * this.speed;
         this.y += Math.cos(this.angle) * this.speed;
+    }
+
+    update(context) {
+        this.#move();
     }
 }
