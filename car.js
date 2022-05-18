@@ -50,10 +50,10 @@ class Car {
 
         // Turn - based on a unit circle with 0 degrees at the top
         if (this.controls.left) {
-            this.angle += this.turnSpeed;
+            this.angle += this.turnSpeed * this.speed / this.maxSpeed;
         }
         if (this.controls.right) {
-            this.angle -= this.turnSpeed;
+            this.angle -= this.turnSpeed * this.speed / this.maxSpeed;
         }
 
         // Update position
