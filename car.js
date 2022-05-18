@@ -17,13 +17,20 @@ class Car {
     }
 
     draw(context) {
+        context.save();
+        context.translate(this.x, this.y);
+        context.rotate(this.angle);
+
         context.beginPath();
         context.rect(
-            this.x - this.width / 2, 
-            this.y - this.height / 2, 
-            this.width, this.height
-            );
+            -this.width / 2, 
+            -this.height / 2, 
+            this.width, 
+            this.height
+        );
         context.fill();
+
+        context.restore();
     }
 
     update() {
