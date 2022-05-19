@@ -68,8 +68,8 @@ class Car {
     }
 
 
-    update(context) {
+    update(roadBorders) {
         this.#move();
-        this.sensor.update();
+        this.sensor.update(roadBorders);
     }
 }
