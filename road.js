@@ -12,4 +12,20 @@ class Road {
         this.top = -inf;
         this.bottom = inf;
     }
+
+    draw(context) {
+        context.lineWidth = 5;
+        context.strokeStyle = '#000000';
+
+        // Edges
+        context.beginPath();
+        context.moveTo(this.left, this.top);
+        context.lineTo(this.left, this.bottom);
+        context.stroke();
+
+        context.beginPath();
+        context.moveTo(this.right, this.top);
+        context.lineTo(this.right, this.bottom);
+        context.stroke();
+    }
 }
