@@ -16,6 +16,7 @@ class Car {
         this.controls = new Controls();
     }
 
+
     draw(context) {
         context.save();
         context.translate(this.x, this.y);
@@ -32,6 +33,7 @@ class Car {
 
         context.restore();
     }
+
 
     #move() {
         if (this.controls.forward) {
@@ -62,6 +64,7 @@ class Car {
         this.y += Math.cos(this.angle) * this.speed;
     }
 
+    
     update(context) {
         this.#move();
     }

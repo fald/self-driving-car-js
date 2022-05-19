@@ -13,6 +13,12 @@ class Road {
         this.bottom = inf;
     }
 
+    
+    getLaneCenter(lane) {
+
+    }
+
+
     draw(context) {
         context.lineWidth = 5;
         context.strokeStyle = "white";
