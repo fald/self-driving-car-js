@@ -30,14 +30,5 @@ class Road {
             context.lineTo(x, this.bottom);
             context.stroke();
         }
-
-        // context.beginPath();
-        // context.moveTo(this.right, this.top);
-        // context.lineTo(this.right, this.bottom);
-        // context.stroke();
     }
-}
-
-function lerp(A, B, t) {
-    return A + (B - A) * t;
 }
