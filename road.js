@@ -13,9 +13,10 @@ class Road {
         this.bottom = inf;
     }
 
-    
-    getLaneCenter(lane) {
 
+    getLaneCenter(laneIndex) {
+        const laneWidth = this.width / this.laneCount;
+        return this.left + laneWidth / 2 + laneIndex * laneWidth;
     }
 
 
