@@ -17,7 +17,7 @@ class Sensor {
                 this.raySpread / 2,
                 -this.raySpread / 2,
                 i / (this.rayCount - 1) // i doesn't become rayCount, so -1 
-            );
+            ) + this.car.angle;
 
             const startPoint = {
                 x: this.car.x,
