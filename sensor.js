@@ -35,38 +35,16 @@ class Sensor {
     }
 
 
-    draw(context) {
-        context.beginPath();
-
-        for (let i = 0; i < this.rayCount; i++) {
-            const ray = this.rays[i];
-            
-            let end = ray[1];
-            if (this.readings[i]) {
-                end = this.readings[i].point; // stop drawing at the intersection
-                context.strokeStyle = "red";
-            } else {
-                context.strokeStyle = "yellow";
-            }
-
-            context.lineWidth = 2;
-            context.moveTo(ray[0].x, ray[0].y);
-            context.lineTo(end.x, end.y);
-            context.stroke();
-        }
-    }
-
-
     #getReading(ray, roadBorders) {
         let touches = [];
 
         for (let i = 0; i < roadBorders.length; i++) {
-            const touch = this.getIntersection(
+            const touch = getIntersection(
                 ray[0],
                 ray[1],
                 roadBorders[i][0],
                 roadBorders[i][1]
-            )
+            );
 
             if (touch) {
                 touches.push(touch);
@@ -76,10 +54,30 @@ class Sensor {
         if (touches.length == 0) {
             return null;
         } else {
-            // Ew.
-            const offsets = touches.map(e => e.offsets);
+            const offsets = touches.map(e => e.offset);
             const minOffset = Math.min(...offsets);
-            return touches.find(e => e.offsets == minOffset);
+            return touches.find(e => e.offset == minOffset);
+        }
+    }
+    
+
+    draw(context) {
+        context.lineWidth = 2;
+
+        for (let i = 0; i < this.rayCount; i++) {
+            const ray = this.rays[i];
+            let end = ray[1];
+            if (this.readings[i]) {
+                end = this.readings[i]; // stop drawing at the intersection
+                context.strokeStyle = "red";
+            } else {
+                context.strokeStyle = "yellow";
+            }
+
+            context.beginPath();
+            context.moveTo(ray[0].x, ray[0].y);
+            context.lineTo(end.x, end.y);
+            context.stroke();
         }
     }
 
@@ -87,7 +85,7 @@ class Sensor {
     update(roadBorders) {
         this.#castRays();
 
-        readings = [];
+        this.readings = [];
         for (let i = 0; i < this.rays.length; i++) {
             this.readings.push(
                 this.#getReading(this.rays[i], roadBorders)
