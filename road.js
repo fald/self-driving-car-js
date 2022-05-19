@@ -15,7 +15,7 @@ class Road {
 
     draw(context) {
         context.lineWidth = 5;
-        context.strokeStyle = '#000000';
+        context.strokeStyle = "white";
 
         // Edges
         context.beginPath();
