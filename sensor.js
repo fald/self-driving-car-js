@@ -36,16 +36,22 @@ class Sensor {
 
 
     draw(context) {
-
         context.beginPath();
-        context.strokeStyle = "yellow";
 
         for (let i = 0; i < this.rayCount; i++) {
             const ray = this.rays[i];
+            
+            let end = ray[1];
+            if (this.readings[i]) {
+                end = this.readings[i].point; // stop drawing at the intersection
+                context.strokeStyle = "red";
+            } else {
+                context.strokeStyle = "yellow";
+            }
 
             context.lineWidth = 2;
             context.moveTo(ray[0].x, ray[0].y);
-            context.lineTo(ray[1].x, ray[1].y);
+            context.lineTo(end.x, end.y);
             context.stroke();
         }
     }
