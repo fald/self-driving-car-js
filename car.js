@@ -13,6 +13,7 @@ class Car {
         this.angle = 0;
         this.turnSpeed = 0.03;
 
+        this.sensor = new Sensor(this);
         this.controls = new Controls();
     }
 
@@ -32,6 +33,8 @@ class Car {
         context.fill();
 
         context.restore();
+
+        this.sensor.draw(context);
     }
 
 
@@ -67,5 +70,6 @@ class Car {
 
     update(context) {
         this.#move();
+        this.sensor.update();
     }
 }

@@ -24,8 +24,8 @@ class Sensor {
                 y: this.car.y
             }
             const endPoint = {
-                x: startPoint.x + this.rayLength * Math.sin(rayAngle) * this.rayLength,
-                y: startPoint.y + this.rayLength * Math.cos(rayAngle) * this.rayLength
+                x: startPoint.x - this.rayLength * Math.sin(rayAngle),
+                y: startPoint.y - this.rayLength * Math.cos(rayAngle)
             }
 
             this.rays.push([startPoint, endPoint]);
@@ -35,8 +35,8 @@ class Sensor {
 
     draw(context) {
 
-        context.strokeStyle = "yellow";
         context.beginPath();
+        context.strokeStyle = "yellow";
 
         for (let i = 0; i < this.rayCount; i++) {
             const ray = this.rays[i];
