@@ -8,6 +8,7 @@ class Sensor {
         this.rays = [];
     }
 
+
     update() {
         this.rays = []; // clear the rays
         
@@ -31,7 +32,19 @@ class Sensor {
         }
     }
 
+
     draw(context) {
-        
+
+        context.strokeStyle = "yellow";
+        context.beginPath();
+
+        for (let i = 0; i < this.rayCount; i++) {
+            const ray = this.rays[i];
+
+            context.lineWidth = 2;
+            context.moveTo(ray[0].x, ray[0].y);
+            context.lineTo(ray[1].x, ray[1].y);
+            context.stroke();
+        }
     }
 }
