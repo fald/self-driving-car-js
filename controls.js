@@ -8,6 +8,7 @@ class Controls {
         this.#addKeyboardListeners();
     }
 
+    
     #addKeyboardListeners() {
         document.onkeydown = (event) => {
             switch (event.key) {
