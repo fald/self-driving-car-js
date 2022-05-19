@@ -11,7 +11,7 @@ animate();
 
 function animate() {
     //context.clearRect(0, 0, canvas.width, canvas.height);
-    car.update();
+    car.update(road.borders);
 
     canvas.height = window.innerHeight;
 
