@@ -11,7 +11,7 @@ class Car {
         this.maxReverse = -3;
         this.friction = 0.05;
         this.angle = 0;
-        this.turnSpeed = 0.1;
+        this.turnSpeed = 0.03;
 
         this.controls = new Controls();
     }
