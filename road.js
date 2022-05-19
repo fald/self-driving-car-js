@@ -17,15 +17,27 @@ class Road {
         context.lineWidth = 5;
         context.strokeStyle = "white";
 
-        // Edges
-        context.beginPath();
-        context.moveTo(this.left, this.top);
-        context.lineTo(this.left, this.bottom);
-        context.stroke();
+        for (let i = 0; i <= this.laneCount; i++) {
+            const x = lerp(
+                this.left,
+                this.right,
+                i / this.laneCount
+            );
 
-        context.beginPath();
-        context.moveTo(this.right, this.top);
-        context.lineTo(this.right, this.bottom);
-        context.stroke();
+            // Edges
+            context.beginPath();
+            context.moveTo(x, this.top);
+            context.lineTo(x, this.bottom);
+            context.stroke();
+        }
+
+        // context.beginPath();
+        // context.moveTo(this.right, this.top);
+        // context.lineTo(this.right, this.bottom);
+        // context.stroke();
     }
+}
+
+function lerp(A, B, t) {
+    return A + (B - A) * t;
 }
