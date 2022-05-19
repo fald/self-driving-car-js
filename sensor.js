@@ -9,7 +9,7 @@ class Sensor {
     }
 
 
-    update() {
+    #castRays() {
         this.rays = []; // clear the rays
         
         for (let i = 0; i < this.rayCount; i++) {
@@ -46,5 +46,10 @@ class Sensor {
             context.lineTo(ray[1].x, ray[1].y);
             context.stroke();
         }
+    }
+
+
+    update() {
+        this.#castRays();
     }
 }
