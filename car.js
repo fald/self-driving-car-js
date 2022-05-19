@@ -5,9 +5,9 @@ class Car {
         this.width = width;
         this.height = height;
 
-        this.acceleration = 0.1;
+        this.acceleration = 0.2;
         this.speed = 0;
-        this.maxSpeed = 4;
+        this.maxSpeed = 5;
         this.maxReverse = -3;
         this.friction = 0.05;
         this.angle = 0;
@@ -37,7 +37,7 @@ class Car {
 
     #move() {
         if (this.controls.forward) {
-            this.speed = Math.max(this.speed + this.acceleration, this.maxSpeed);
+            this.speed = Math.min(this.speed + this.acceleration, this.maxSpeed);
         }
         if (this.controls.reverse) {
             this.speed = Math.max(this.speed - this.acceleration, this.maxReverse);
@@ -64,7 +64,7 @@ class Car {
         this.y += Math.cos(this.angle) * this.speed;
     }
 
-    
+
     update(context) {
         this.#move();
     }
