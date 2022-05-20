@@ -13,6 +13,8 @@ class Car {
         this.angle = 0;
         this.turnSpeed = 0.03;
 
+        this.polygon = [];
+
         this.sensor = new Sensor(this);
         this.controls = new Controls();
     }
@@ -30,18 +32,20 @@ class Car {
         // Account for car's rotation, too
         points.push(
             // Front-right
-            {x: this.x - Math.sin(this.angle - alpha) * radius, 
-                y: this.y - Math.cos(this.angle - alpha) * radius},
+            {x: this.x - Math.cos(this.angle - alpha) * radius, 
+                y: this.y - Math.sin(this.angle + alpha) * radius},
             // Front-left
-            {x: this.x - Math.sin(this.angle + alpha) * radius, 
-                y: this.y - Math.cos(this.angle + alpha) * radius},
+            {x: this.x - Math.cos(this.angle + alpha) * radius, 
+                y: this.y - Math.sin(this.angle - alpha) * radius},
             // Rear-left
-            {x: this.x - Math.sin(Math.PI + this.angle - alpha) * radius, 
-                y: this.y - Math.cos(Math.PI + this.angle - alpha) * radius},
+            {x: this.x - Math.cos(Math.PI + this.angle - alpha) * radius, 
+                y: this.y - Math.sin(Math.PI + this.angle + alpha) * radius},
             // Rear-right
-            {x: this.x - Math.sin(Math.PI + this.angle + alpha) * radius, 
-                y: this.y - Math.cos(Math.PI + this.angle + alpha) * radius}
+            {x: this.x - Math.cos(Math.PI + this.angle + alpha) * radius, 
+                y: this.y - Math.sin(Math.PI + this.angle - alpha) * radius}
         );
+
+        return points;
     }
 
 
@@ -76,20 +80,29 @@ class Car {
 
 
     draw(context) {
-        context.save();
-        context.translate(this.x, this.y);
-        context.rotate(-this.angle);
+        // context.save();
+        // context.translate(this.x, this.y);
+        // context.rotate(-this.angle);
 
+        // context.beginPath();
+        // context.rect(
+        //     -this.width / 2, 
+        //     -this.height / 2, 
+        //     this.width, 
+        //     this.height
+        // );
+        // context.fill();
+
+        // context.restore();
+
+        // We can instead use our polygon to draw the car
         context.beginPath();
-        context.rect(
-            -this.width / 2, 
-            -this.height / 2, 
-            this.width, 
-            this.height
-        );
+        console.log(this.polygon);
+        context.moveTo(this.polygon[0].x, this.polygon[0].y);
+        for (let i = 1; i < this.polygon.length; i++) {
+            context.lineTo(this.polygon[i].x, this.polygon[i].y);
+        }
         context.fill();
-
-        context.restore();
 
         this.sensor.draw(context);
     }
@@ -97,7 +110,7 @@ class Car {
 
     update(roadBorders) {
         this.#move();
-        this.#createPolygon();
+        this.polygon = this.#createPolygon();
         this.sensor.update(roadBorders);
     }
 }
