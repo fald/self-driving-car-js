@@ -15,12 +15,11 @@ class Car {
 
         this.sensor = new Sensor(this);
         this.controls = new Controls();
-
-        this.#createPolygon();
     }
 
 
     #createPolygon() {
+        // Well, create rectangle, but whatever.
         const points = [];
 
         // From center to corners
@@ -30,21 +29,19 @@ class Car {
         // Remember that the unit circle is rotated 90 degrees
         // Account for car's rotation, too
         points.push(
-            // top right
+            // Front-right
             {x: this.x - Math.sin(this.angle - alpha) * radius, 
                 y: this.y - Math.cos(this.angle - alpha) * radius},
-            // top left
+            // Front-left
             {x: this.x - Math.sin(this.angle + alpha) * radius, 
                 y: this.y - Math.cos(this.angle + alpha) * radius},
-            // bottom left
+            // Rear-left
             {x: this.x - Math.sin(Math.PI + this.angle - alpha) * radius, 
                 y: this.y - Math.cos(Math.PI + this.angle - alpha) * radius},
-            // bottom right
+            // Rear-right
             {x: this.x - Math.sin(Math.PI + this.angle + alpha) * radius, 
                 y: this.y - Math.cos(Math.PI + this.angle + alpha) * radius}
         );
-
-        console.log(points);
     }
 
 
@@ -100,6 +97,7 @@ class Car {
 
     update(roadBorders) {
         this.#move();
+        this.#createPolygon();
         this.sensor.update(roadBorders);
     }
 }
