@@ -15,26 +15,36 @@ class Car {
 
         this.sensor = new Sensor(this);
         this.controls = new Controls();
+
+        this.#createPolygon();
     }
 
 
-    draw(context) {
-        context.save();
-        context.translate(this.x, this.y);
-        context.rotate(-this.angle);
+    #createPolygon() {
+        const points = [];
 
-        context.beginPath();
-        context.rect(
-            -this.width / 2, 
-            -this.height / 2, 
-            this.width, 
-            this.height
+        // From center to corners
+        const radius = Math.hypot(this.width, this.height) / 2;
+        const alpha = Math.atan2(this.height, this.width);
+
+        // Remember that the unit circle is rotated 90 degrees
+        // Account for car's rotation, too
+        points.push(
+            // top right
+            {x: this.x - Math.sin(this.angle - alpha) * radius, 
+                y: this.y - Math.cos(this.angle - alpha) * radius},
+            // top left
+            {x: this.x - Math.sin(this.angle + alpha) * radius, 
+                y: this.y - Math.cos(this.angle + alpha) * radius},
+            // bottom left
+            {x: this.x - Math.sin(Math.PI + this.angle - alpha) * radius, 
+                y: this.y - Math.cos(Math.PI + this.angle - alpha) * radius},
+            // bottom right
+            {x: this.x - Math.sin(Math.PI + this.angle + alpha) * radius, 
+                y: this.y - Math.cos(Math.PI + this.angle + alpha) * radius}
         );
-        context.fill();
 
-        context.restore();
-
-        this.sensor.draw(context);
+        console.log(points);
     }
 
 
@@ -65,6 +75,26 @@ class Car {
         // Inverted cos/sin since the unit circle is rotated 90 degrees
         this.x += Math.sin(this.angle) * -this.speed;
         this.y += Math.cos(this.angle) * -this.speed;
+    }
+
+
+    draw(context) {
+        context.save();
+        context.translate(this.x, this.y);
+        context.rotate(-this.angle);
+
+        context.beginPath();
+        context.rect(
+            -this.width / 2, 
+            -this.height / 2, 
+            this.width, 
+            this.height
+        );
+        context.fill();
+
+        context.restore();
+
+        this.sensor.draw(context);
     }
 
 
