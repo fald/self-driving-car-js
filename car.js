@@ -14,6 +14,7 @@ class Car {
         this.turnSpeed = 0.03;
 
         this.polygon = [];
+        this.damaged = false;
 
         this.sensor = new Sensor(this);
         this.controls = new Controls();
@@ -32,20 +33,30 @@ class Car {
         // Account for car's rotation, too
         points.push(
             // Front-right
-            {x: this.x - Math.cos(this.angle - alpha) * radius, 
-                y: this.y - Math.sin(this.angle + alpha) * radius},
+            {x: this.x - Math.cos(-this.angle - alpha + Math.PI) * radius, 
+                y: this.y - Math.sin(-this.angle - alpha + Math.PI) * radius},
             // Front-left
-            {x: this.x - Math.cos(this.angle + alpha) * radius, 
-                y: this.y - Math.sin(this.angle - alpha) * radius},
+            {x: this.x - Math.cos(-this.angle + alpha + Math.PI) * radius, 
+                y: this.y - Math.sin(-this.angle + alpha + Math.PI) * radius},
             // Rear-left
-            {x: this.x - Math.cos(Math.PI + this.angle - alpha) * radius, 
-                y: this.y - Math.sin(Math.PI + this.angle + alpha) * radius},
+            {x: this.x - Math.cos(-this.angle - alpha) * radius, 
+                y: this.y - Math.sin(-this.angle - alpha) * radius},
             // Rear-right
-            {x: this.x - Math.cos(Math.PI + this.angle + alpha) * radius, 
-                y: this.y - Math.sin(Math.PI + this.angle - alpha) * radius}
+            {x: this.x - Math.cos(-this.angle + alpha) * radius, 
+                y: this.y - Math.sin(-this.angle + alpha) * radius}
         );
 
         return points;
+    }
+
+
+    #assessDamage(roadBorders) {
+        for (let i = 0; i < roadBorders.length; i++) {
+            if (polyIntersect(this.polygon, roadBorders[i])) {
+                return true;
+            }
+        }
+        return false;
     }
 
 
@@ -111,6 +122,7 @@ class Car {
     update(roadBorders) {
         this.#move();
         this.polygon = this.#createPolygon();
+        this.damaged = this.#assessDamage(roadBorders);
         this.sensor.update(roadBorders);
     }
 }
