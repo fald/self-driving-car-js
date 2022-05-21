@@ -91,21 +91,6 @@ class Car {
 
 
     draw(context) {
-        // context.save();
-        // context.translate(this.x, this.y);
-        // context.rotate(-this.angle);
-
-        // context.beginPath();
-        // context.rect(
-        //     -this.width / 2, 
-        //     -this.height / 2, 
-        //     this.width, 
-        //     this.height
-        // );
-        // context.fill();
-
-        // context.restore();
-
         // We can instead use our polygon to draw the car
         if (this.damaged) {
             context.fillStyle = 'red';
