@@ -28,7 +28,7 @@ function getIntersection(A, B, C, D) {
 function polyIntersect(poly_1, poly_2) {
     // There's probably a better way...
     for (let i = 0; i < poly_1.length; i++) {
-        for (let j = 0; i < poly_2.length; j++) {
+        for (let j = 0; j < poly_2.length - 1; j++) {
             const touch = getIntersection(
                 poly_1[i],
                 poly_1[(i + 1) % poly_1.length],
