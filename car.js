@@ -107,8 +107,13 @@ class Car {
         // context.restore();
 
         // We can instead use our polygon to draw the car
+        if (this.damaged) {
+            context.fillStyle = 'red';
+        } else {
+            context.fillStyle = 'green';
+        }
+
         context.beginPath();
-        console.log(this.polygon);
         context.moveTo(this.polygon[0].x, this.polygon[0].y);
         for (let i = 1; i < this.polygon.length; i++) {
             context.lineTo(this.polygon[i].x, this.polygon[i].y);
