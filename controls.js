@@ -1,11 +1,20 @@
 class Controls {
-    constructor() {
+    constructor(controlType) {
         this.forward = false;
         this.reverse = false;
         this.left = false;
         this.right = false;
 
-        this.#addKeyboardListeners();
+        switch(controlType) {
+            case "KEYS":
+                this.#addKeyboardListeners();
+                break;
+            case "AI":
+                this.#addAI();
+                break;
+            case "DUMMY":
+                break;
+        }
     }
 
     
@@ -45,5 +54,10 @@ class Controls {
             }
             // console.table(this);
         }
+    }
+
+
+    #addAI() {
+        this.forward = true;
     }
 }
