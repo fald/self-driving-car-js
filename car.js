@@ -1,5 +1,5 @@
 class Car {
-    constructor(x, y, width, height, controlType, maxSpeed=5) {
+    constructor(x, y, width, height, controlType, color="green", maxSpeed=5) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -12,6 +12,8 @@ class Car {
         this.friction = 0.05;
         this.angle = 0;
         this.turnSpeed = 0.03;
+
+        this.color = color;
 
         this.polygon = [];
         this.damaged = false;
@@ -103,7 +105,7 @@ class Car {
         if (this.damaged) {
             context.fillStyle = '#050';
         } else {
-            context.fillStyle = 'green';
+            context.fillStyle = this.color;
         }
 
         context.beginPath();
