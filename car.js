@@ -101,7 +101,7 @@ class Car {
     draw(context) {
         // We can instead use our polygon to draw the car
         if (this.damaged) {
-            context.fillStyle = 'red';
+            context.fillStyle = '#050';
         } else {
             context.fillStyle = 'green';
         }
