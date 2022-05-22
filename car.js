@@ -60,6 +60,7 @@ class Car {
         }
         for (let i = 0; i < traffic.length; i++) {
             if (polyIntersect(this.polygon, traffic[i].polygon)) {
+                traffic[i].damaged = true;
                 return true;
             }
         }
