@@ -52,9 +52,14 @@ class Car {
     }
 
 
-    #assessDamage(roadBorders) {
+    #assessDamage(roadBorders, traffic) {
         for (let i = 0; i < roadBorders.length; i++) {
             if (polyIntersect(this.polygon, roadBorders[i])) {
+                return true;
+            }
+        }
+        for (let i = 0; i < traffic.length; i++) {
+            if (polyIntersect(this.polygon, traffic[i].polygon)) {
                 return true;
             }
         }
@@ -92,16 +97,6 @@ class Car {
     }
 
 
-    // addSensor() {
-    //     this.sensor = new Sensor(this);
-    // }
-
-
-    // addControls() {
-    //     this.controls = new Controls();
-    // }
-
-
     draw(context) {
         // We can instead use our polygon to draw the car
         if (this.damaged) {
@@ -123,16 +118,16 @@ class Car {
     }
 
 
-    update(roadBorders) {
+    update(roadBorders, traffic) {
         if (!this.damaged) {
             if (this.controls) {
                 this.#move();
             }
             this.polygon = this.#createPolygon();
-            this.damaged = this.#assessDamage(roadBorders);
+            this.damaged = this.#assessDamage(roadBorders, traffic);
         }
         if (this.sensor) {
-            this.sensor.update(roadBorders);
+            this.sensor.update(roadBorders, traffic);
         }
     }
 }
