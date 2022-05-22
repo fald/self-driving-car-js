@@ -16,8 +16,8 @@ class Car {
         this.polygon = [];
         this.damaged = false;
 
-        this.sensor = new Sensor(this);
-        this.controls = new Controls();
+        // this.sensor = new Sensor(this);
+        // this.controls = new Controls();
     }
 
 
@@ -90,6 +90,16 @@ class Car {
     }
 
 
+    addSensor() {
+        this.sensor = new Sensor(this);
+    }
+
+
+    addControls() {
+        this.controls = new Controls();
+    }
+
+
     draw(context) {
         // We can instead use our polygon to draw the car
         if (this.damaged) {
@@ -105,16 +115,22 @@ class Car {
         }
         context.fill();
 
-        this.sensor.draw(context);
+        if (this.sensor && this.controls) { // Only if the car has sensors and is player controlled, for now
+            this.sensor.draw(context);
+        }
     }
 
 
     update(roadBorders) {
         if (!this.damaged) {
-            this.#move();
+            if (this.controls) {
+                this.#move();
+            }
             this.polygon = this.#createPolygon();
             this.damaged = this.#assessDamage(roadBorders);
         }
-        this.sensor.update(roadBorders);
+        if (this.sensor) {
+            this.sensor.update(roadBorders);
+        }
     }
 }
