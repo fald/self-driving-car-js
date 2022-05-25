@@ -13,6 +13,7 @@ class Level {
     }
 
     static #randomize(level) {
+        // Initialize weights
         for (let i = 0; i < level.inputs.length; i++) {
             for (let j = 0; j < level.outputs.length; j++) {
                 level.weights[i][j] = Math.random() * 2 - 1; // -1 to 1
@@ -22,5 +23,33 @@ class Level {
         for (let i = 0; i < level.biases.length; i++) {
             level.biases[i] = Math.random() * 2 - 1; // -1 to 1
         }
+    }
+
+    static feedForward(level, inputs) {
+        // Feed forward - compute outputs
+        // Set the inputs for a given level
+        for (let i = 0; i < level.inputs.length; i++) {
+            level.inputs[i] = inputs[i];
+        }
+
+        // Compute outputs
+        // Loop through inputs, add: 
+        // the product of the jth input and 
+        // the weight of the jth input to the ith output
+        // Repeated for every input neuron.
+        // If the total sum > bias of output neuron, set the output to 1 (turned on)
+        for (let i = 0; i < level.outputs.length; i++) {
+            let sum = 0;
+            for (let j = 0; j < level.inputs.length; j++) {
+                sum += level.inputs[j] * level.weights[j][i];
+            }
+            if (sum > level.biases[i]) { // or sum + bias > 0, for more scientifically correct
+                level.outputs[i] = 1;
+            } else {
+                level.outputs[i] = 0;
+            }
+        }
+
+        return level.outputs;
     }
 }
