@@ -1,9 +1,13 @@
-const canvas = document.getElementById('myCanvas');
+const carCanvas = document.getElementById('carCanvas');
+const networkCanvas = document.getElementById('networkCanvas');
 
-canvas.width = 200; // Just a narrow road, whee.
+carCanvas.width = 200; // Just a narrow road, whee.
+networkCanvas.width = 300;
 
-const context = canvas.getContext('2d');
-const road = new Road(canvas.width / 2, canvas.width * 0.9);
+const carContext = carCanvas.getContext('2d');
+const networkContext = networkCanvas.getContext('2d');
+
+const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 const car = new Car(road.getLaneCenter(1), 100, 30, 50, "AI", "blue", 6);
 
 const traffic = [
@@ -20,18 +24,19 @@ function animate() {
 
     car.update(road.borders, traffic);
 
-    canvas.height = window.innerHeight;
+    carCanvas.height = window.innerHeight;
+    networkCanvas.height = window.innerHeight;
 
-    context.save();
-    context.translate(0, canvas.height * 0.7 -car.y);
+    carContext.save();
+    carContext.translate(0, carCanvas.height * 0.7 -car.y);
 
-    road.draw(context);
+    road.draw(carContext);
     for (let i = 0; i < traffic.length; i++) {
-        traffic[i].draw(context);
+        traffic[i].draw(carContext);
     }
-    car.draw(context);
+    car.draw(carContext);
 
-    context.restore();
+    carContext.restore();
 
     requestAnimationFrame(animate);
 }
