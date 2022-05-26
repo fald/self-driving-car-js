@@ -18,10 +18,10 @@ class Car {
         this.polygon = [];
         this.damaged = false;
 
-        if (controlType == "KEYS") {
+        if (controlType != "DUMMY") {
             this.sensor = new Sensor(this);
         }
-        this.controls = new Controls(controlType);
+        this.controls = new Controls(controlType, this);
     }
 
 
