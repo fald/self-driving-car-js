@@ -38,5 +38,7 @@ function animate() {
 
     carContext.restore();
 
+    Visualizer.drawNetwork(networkContext, car.brain);
+
     requestAnimationFrame(animate);
 }
