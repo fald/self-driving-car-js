@@ -19,6 +19,16 @@ const traffic = [
 animate();
 
 
+function save() {
+    localStorage.setItem("bestBrain", JSON.stringify(bestCar.brain));
+}
+
+
+function discard() {
+    localStorage.removeItem("bestBrain");
+}
+
+
 function generateCars(N) {
     const cars = [];
 
