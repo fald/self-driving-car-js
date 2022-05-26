@@ -59,11 +59,11 @@ class Controls {
     }
 
 
-    #addAI() {
+    #addAI(hiddenSize=6, outputSize=4) {
         this.brain = new NeuralNetwork(
             this.car.sensor.rayCount,
-            6, // 1 hidden layer with 6 nodes
-            4, // 4 outputs - fwd, back, left, right
+            hiddenSize,
+            outputSize, // 4 outputs - fwd, back, left, right
         );
     }
 }
