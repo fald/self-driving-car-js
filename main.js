@@ -19,6 +19,8 @@ if (localStorage.getItem("bestBrain")) {
 
 const traffic = [
     new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(0), -200, 30, 50, "DUMMY"),
+    new Car(road.getLaneCenter(2), -200, 30, 50, "DUMMY"),
 ];
 
 animate();
