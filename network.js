@@ -1,3 +1,32 @@
+class NeuralNetwork {
+    constructor(neuronCounts) {
+        // Where neuronCounts is the number of neurons in each layer.
+        this.levels = [];
+        // Populate it - 1 fewer than total number since last level includes the output layer.
+        // Sure seems there was a better way to do this.
+        for (let i = 0; i < neuronCounts.length - 1; i++) {
+            this.levels.push(new Level(neuronCounts[i], neuronCounts[i + 1]));
+        }
+    }
+
+    static feedForward(givenInputs, network) {
+        let outputs = Level.feedForward(
+            givenInputs,
+            network.levels[0]
+        ); // need a starting output to feed into the loop below.
+
+        for (let i = 1; i < network.levels.length; i++) {
+            outputs = Level.feedForward(
+                outputs,
+                network.levels[i]
+            );
+        }
+        
+        return outputs;
+    }
+}
+
+
 class Level {
     constructor(inputCount, outpuCount) {
         this.inputs = new Array(inputCount);
