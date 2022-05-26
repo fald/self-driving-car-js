@@ -11,14 +11,14 @@ class NeuralNetwork {
 
     static feedForward(givenInputs, network) {
         let outputs = Level.feedForward(
-            givenInputs,
-            network.levels[0]
+            network.levels[0],
+            givenInputs
         ); // need a starting output to feed into the loop below.
 
         for (let i = 1; i < network.levels.length; i++) {
             outputs = Level.feedForward(
-                outputs,
-                network.levels[i]
+                network.levels[i],
+                outputs
             );
         }
         
