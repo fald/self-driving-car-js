@@ -131,6 +131,14 @@ class Car {
         }
         if (this.sensor) {
             this.sensor.update(roadBorders, traffic);
+
+            // Neuron receives low vals if object is further away, so 1-val
+            const offsets = this.sensor.readings.map(
+                s => s == null? 0 : 1 - s.offset
+            );
+            console.log("Offsets: ", offsets);
+            const outputs = NeuralNetwork.feedForward(offsets, this.controls.brain);
+            console.log("Outputs: ", outputs);
         }
     }
 }
