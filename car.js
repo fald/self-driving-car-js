@@ -128,7 +128,10 @@ class Car {
             }
             this.polygon = this.#createPolygon();
             this.damaged = this.#assessDamage(roadBorders, traffic);
+        } else {
+            this.sensor = null;
         }
+        
         if (this.sensor) {
             this.sensor.update(roadBorders, traffic);
 
