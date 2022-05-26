@@ -137,7 +137,7 @@ class Car {
                 s => s == null? 0 : 1 - s.offset
             );
             console.log("Offsets: ", offsets);
-            const outputs = NeuralNetwork.feedForward(offsets, this.controls.brain);
+            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
             console.log("Outputs: ", outputs);
         }
     }

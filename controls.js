@@ -60,7 +60,7 @@ class Controls {
 
 
     #addAI(hiddenSize=6, outputSize=4) {
-        this.brain = new NeuralNetwork(
+        this.car.brain = new NeuralNetwork(
             [this.car.sensor.rayCount,
             hiddenSize,
             outputSize] // 4 outputs - fwd, back, left, right
