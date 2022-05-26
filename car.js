@@ -132,13 +132,21 @@ class Car {
         if (this.sensor) {
             this.sensor.update(roadBorders, traffic);
 
-            // Neuron receives low vals if object is further away, so 1-val
-            const offsets = this.sensor.readings.map(
-                s => s == null? 0 : 1 - s.offset
-            );
-            console.log("Offsets: ", offsets);
-            const outputs = NeuralNetwork.feedForward(offsets, this.brain);
-            console.log("Outputs: ", outputs);
+            if (this.brain) {
+                // Neuron receives low vals if object is further away, so 1-val
+                const offsets = this.sensor.readings.map(
+                    s => s == null? 0 : 1 - s.offset
+                );
+                console.log("Offsets: ", offsets);
+                const outputs = NeuralNetwork.feedForward(offsets, this.brain);
+                console.log("Outputs: ", outputs);
+
+                // Hmm.
+                this.controls.forward = outputs[0];
+                this.controls.reverse = outputs[1];
+                this.controls.left = outputs[2];
+                this.controls.right = outputs[3];
+            }
         }
     }
 }
