@@ -51,9 +51,12 @@ function animate() {
     for (let i = 0; i < traffic.length; i++) {
         traffic[i].draw(carContext);
     }
+
+    carContext.globalAlpha = 0.5;
     for (let i = 0; i < cars.length; i++) {
         cars[i].draw(carContext);
     }
+    carContext.globalAlpha = 1;
 
     carContext.restore();
 
