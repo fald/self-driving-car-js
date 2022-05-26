@@ -1,5 +1,5 @@
 class Controls {
-    constructor(controlType) {
+    constructor(controlType, car) {
         this.forward = false;
         this.reverse = false;
         this.left = false;
@@ -10,9 +10,11 @@ class Controls {
                 this.#addKeyboardListeners();
                 break;
             case "AI":
+                this.car = car;
                 this.#addAI();
                 break;
             case "DUMMY":
+                this.forward = true;
                 break;
         }
     }
@@ -58,6 +60,10 @@ class Controls {
 
 
     #addAI() {
-        this.forward = true;
+        this.brain = new NeuralNetwork(
+            this.car.sensor.rayCount,
+            6, // 1 hidden layer with 6 nodes
+            4, // 4 outputs - fwd, back, left, right
+        );
     }
 }
