@@ -7,9 +7,9 @@ networkCanvas.width = 300;
 const carContext = carCanvas.getContext('2d');
 const networkContext = networkCanvas.getContext('2d');
 
-const N = 100; // AI agents
-const M = 20; // Traffic elements at a time
-const mutationRate = 0.1;
+const N = 500; // AI agents
+const M = 50; // Traffic elements at a time
+const mutationRate = 0.2;
 
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 const cars = generateCars(N);
