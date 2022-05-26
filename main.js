@@ -41,11 +41,18 @@ function animate() {
         cars[i].update(road.borders, traffic);
     }
 
+    // Find the furthest forward car.
+    const bestCar = cars.find(
+        c => c.y == Math.min(
+            ...cars.map(c => c.y)
+        )
+    );
+
     carCanvas.height = window.innerHeight;
     networkCanvas.height = window.innerHeight;
 
     carContext.save();
-    carContext.translate(0, carCanvas.height * 0.7 -cars[0].y);
+    carContext.translate(0, carCanvas.height * 0.7 -bestCar.y);
 
     road.draw(carContext);
     for (let i = 0; i < traffic.length; i++) {
@@ -57,10 +64,12 @@ function animate() {
         cars[i].draw(carContext);
     }
     carContext.globalAlpha = 1;
+    // just redraw the best car - lazy way I guess
+    bestCar.draw(carContext);
 
     carContext.restore();
 
-    Visualizer.drawNetwork(networkContext, cars[0].brain);
+    Visualizer.drawNetwork(networkContext, bestCar.brain);
 
     requestAnimationFrame(animate);
 }
