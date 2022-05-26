@@ -9,6 +9,7 @@ class NeuralNetwork {
         }
     }
 
+
     static feedForward(givenInputs, network) {
         let outputs = Level.feedForward(
             network.levels[0],
@@ -24,7 +25,31 @@ class NeuralNetwork {
         
         return outputs;
     }
+
+
+    static mutate(network, mutationRate=1) {
+        network.levels.forEach(level => {
+            for (let i = 0; i < level.biases.length; i++) {
+                level.biases[i] = lerp(
+                    level.biases[i],
+                    Math.random() * 2 - 1,
+                    mutationRate
+                );
+            }
+
+            for (let i = 0; i < level.weights.length; i++) {
+                for (let j = 0; j < level.weights[i].length; j++) {
+                    level.weights[i][j] = lerp(
+                        level.weights[i][j],
+                        Math.random() * 2 - 1,
+                        mutationRate
+                    );
+                }
+            }
+        });
+    }
 }
+
 
 
 class Level {
@@ -41,6 +66,7 @@ class Level {
         Level.#randomize(this);
     }
 
+
     static #randomize(level) {
         // Initialize weights
         for (let i = 0; i < level.inputs.length; i++) {
@@ -53,6 +79,7 @@ class Level {
             level.biases[i] = Math.random() * 2 - 1; // -1 to 1
         }
     }
+
 
     static feedForward(level, inputs) {
         // Feed forward - compute outputs
