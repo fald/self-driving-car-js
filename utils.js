@@ -42,3 +42,13 @@ function polyIntersect(poly_1, poly_2) {
     }
     return false;
 }
+
+
+// Stolen without thought from the git project page.
+function getRGBA(value){
+    const alpha=Math.abs(value);
+    const R=value<0?0:255;
+    const G=R;
+    const B=value>0?0:255;
+    return "rgba("+R+","+G+","+B+","+alpha+")";
+}
