@@ -52,7 +52,7 @@ function animate() {
         traffic[i].draw(carContext);
     }
 
-    carContext.globalAlpha = 0.5;
+    carContext.globalAlpha = 0.1;
     for (let i = 0; i < cars.length; i++) {
         cars[i].draw(carContext);
     }
