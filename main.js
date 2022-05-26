@@ -7,21 +7,24 @@ networkCanvas.width = 300;
 const carContext = carCanvas.getContext('2d');
 const networkContext = networkCanvas.getContext('2d');
 
-const N = 100;
+const N = 100; // AI agents
+const M = 20; // Traffic elements at a time
+const mutationRate = 0.1;
 
 const road = new Road(carCanvas.width / 2, carCanvas.width * 0.9);
 const cars = generateCars(N);
 
 let bestCar = cars[0];
 if (localStorage.getItem("bestBrain")) {
-    bestCar.brain = JSON.parse(localStorage.getItem("bestBrain"));
+    for (let i = 0; i < cars.length; i++) {
+        cars[i].brain = JSON.parse(localStorage.getItem("bestBrain"));
+        if (i != 0) {
+            NeuralNetwork.mutate(cars[i].brain, mutationRate);
+        }
+    }
 }
 
-const traffic = [
-    new Car(road.getLaneCenter(1), -100, 30, 50, "DUMMY"),
-    new Car(road.getLaneCenter(0), -200, 30, 50, "DUMMY"),
-    new Car(road.getLaneCenter(2), -200, 30, 50, "DUMMY"),
-];
+const traffic = generateTraffic(M);
 
 animate();
 
@@ -46,6 +49,21 @@ function generateCars(N) {
     }
 
     return cars;
+}
+
+
+function generateTraffic(N) {
+    const traffic = [];
+
+    for (let i = 0; i < N; i++) {
+        let lane = Math.floor(Math.random() * 3);
+        let dist = -Math.random() * N * 200;
+        traffic.push(
+            new Car(road.getLaneCenter(lane), dist, 30, 50, "DUMMY", "pink")
+        );
+    }
+
+    return traffic;
 }
 
 
